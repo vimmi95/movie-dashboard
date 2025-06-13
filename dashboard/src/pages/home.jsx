@@ -1,18 +1,43 @@
 import MovieList from "../components/MovieList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getPopularMovies, searchMovies } from "../services/api";
 import "../css/Home.css"; 
 
 function Home() {
 
     const [searchQuery, setSearchQuery] = useState(""); // this statment is important to mantain the state of the components.
     // foreg: if we update any values in the list, the new state will be maintained , if we donot use userState function the new changes will not be reflected even re-render
-    const movies = [
-        {id:1, title: "John Wick" , release_date:"2020-05-10"},
-        {id:2, title: "Comedy Begins" , release_date:"1998-10-25"},
-        {id:3, title: "Shiny Worlds" , release_date:"2000-05-01"},
-        {id:4, title: "Vimmi Bio" , release_date:"1996-12-10"},
-        {id:5, title: "Comedy movies" , release_date:"2021-01-20"},
-    ];
+    
+    
+    // Call api to fetch the details of the movie
+    const [movies, setMovies] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+
+    // The useEffect will only run when the page is re-rendered, for example, if i like any images or if i start searching for something
+    useEffect(() => {
+        const loadPopularMovies = async () => {
+            try {
+                const popularMovies = await getPopularMovies()
+                setMovies(popularMovies)
+            } catch (err) {
+                console.log(err)
+                setError("Failed to load movies...")
+            }
+            finally{
+                setLoading(false)
+            }
+        }
+        loadPopularMovies()
+    }, [])
+    // const movies = [
+    //     {id:1, title: "John Wick" , release_date:"2020-05-10"},
+    //     {id:2, title: "Comedy Begins" , release_date:"1998-10-25"},
+    //     {id:3, title: "Shiny Worlds" , release_date:"2000-05-01"},
+    //     {id:4, title: "Vimmi Bio" , release_date:"1996-12-10"},
+    //     {id:5, title: "Comedy movies" , release_date:"2021-01-20"},
+    // ];
 
     const handleSearch = (e) => {
         e.preventDefault()
