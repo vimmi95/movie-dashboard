@@ -13,6 +13,11 @@ function Home() {
         {id:5, title: "Comedy movies" , release_date:"2021-01-20"},
     ];
 
+    const handleSearch = (e) => {
+        e.preventDefault()
+        alert(searchQuery)
+        setSearchQuery("---------")
+    };
 
     return (
         <div className="home">

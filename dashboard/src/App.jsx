@@ -4,15 +4,18 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import MovieList from './components/MovieList'
 import Home from "./pages/home"
+import { Routes,Route } from 'react-router-dom'
+import Favorite from './pages/favorite'
 
 function App() {
 
-
   return (
-    <> 
-    {/* <MovieList movie={{title:"Titanic" , release_date:"2025-02-30"}}></MovieList> */}
-    <Home></Home>
-    </>
+    <main className='main-content'>
+      <Routes>
+        <Route path='/' element={<Home />}/>
+         <Route path='/fav' element={<Favorite />}/>
+      </Routes>
+    </main>
   )
 }
 
