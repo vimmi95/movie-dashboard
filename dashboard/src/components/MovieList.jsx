@@ -1,3 +1,6 @@
+
+import "../css/MovieList.css";
+
 function MovieList({movie}) {
 
     function onLikeClick() {
