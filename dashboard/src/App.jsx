@@ -7,11 +7,12 @@ import Home from "./pages/home"
 import { Routes,Route } from 'react-router-dom'
 import Favorite from './pages/favorite'
 import NavBar from './components/Navbar'
+import { MovieProvider } from './context/movieContext'
 
 function App() {
 
   return (
-    <div>
+    <MovieProvider>
       <NavBar/>    
     <main className='main-content'>
       <Routes>
@@ -19,7 +20,7 @@ function App() {
          <Route path='/fav' element={<Favorite />}/>
       </Routes>
     </main>
-    </div>
+    </MovieProvider>
   )
 }
 

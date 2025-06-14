@@ -1,18 +1,24 @@
 
 import "../css/MovieList.css";
+import { useMovieContext } from "../context/movieContext";
+import { useContext } from "react";
 
 function MovieList({movie}) {
-    console.log(movie.poster_path);
 
-    function onLikeClick() {
-        alert("Clicked");
+    const {isFavorite, addToFavorite, removeFromFavorite} = useMovieContext()
+    const favorite = isFavorite(movie.id)
+
+    function onLikeClick(e) {
+        e.preventDefault()
+        if (favorite) removeFromFavorite(movie.id)
+            else addToFavorite(movie)
     }
 
     return <div className="movie-card">
                 <div className="movie-poster">
                     <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}/>
                     <div className="movie-overlay">
-                        <button className="favorite-btn" onClick={onLikeClick}>
+                        <button className={`favorite-btn ${favorite ? "active" : ""}`  } onClick={onLikeClick}>
                             
                         </button>
                     </div>
